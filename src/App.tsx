@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { Octokit } from "@octokit/core";
+
+// const octokit = new Octokit({ auth: `${import.meta.env.VITE_GITHUB_TOKEN}` });
+const octokit = new Octokit();
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [apiInfo, setApiInfo] = useState<ApiInfoItem[]>([{ id: 1, name: "no repos" }]);
+
+  interface ApiInfoItem {
+    id: number;
+    name: string;
+  }
+
+  async function getUserRepos() {
+    const patata = octokit.request("GET /users/Gatchan1/repos", {
+      // username: "USERNAME",
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+    patata
+      .then((resp) => {
+        setApiInfo(resp.data);
+      })
+      .catch((err) => {
+        console.log("catch()", err);
+      });
+  }
+
+  useEffect(() => {
+    getUserRepos();
+  }, []);
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {apiInfo.map((repo) => {
+          return <div key={repo.id}>{repo.name}</div>;
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <p>Click on the Vite and React logos to learn more</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
