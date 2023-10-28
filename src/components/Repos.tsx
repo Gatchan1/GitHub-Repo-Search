@@ -25,6 +25,7 @@ export default function Repos() {
       });
       repos
         .then((resp) => {
+          console.log("console looog", resp);
           setApiInfo(resp.data);
           setTimeout(() => {
             setLoading(false);

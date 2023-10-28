@@ -13,8 +13,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 #HomePage form button.submit {
   width: 100px;
+}
+
+#HomePage div.alert {
+  position: absolute;
+  left: 200px;
+  width: 200px;
+  padding: 0;
+}
+
+#Alert {
+  background-color: rgb(255, 221, 221);
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#Alert p {
+  text-align: center;
+}
+
+#Alert button {
+  width: 70px;
+  color: black;
 }
