@@ -3,6 +3,7 @@ import "./App.css";
 import { UserProviderWrapper } from "./contexts/user.context.tsx";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
+import ErrorPage from "./pages/ErrorPage.tsx";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile/:username" element={<ProfilePage />} />
+          <Route path="/notfound" element={<ErrorPage />} />
         </Routes>
       </UserProviderWrapper>
     </>

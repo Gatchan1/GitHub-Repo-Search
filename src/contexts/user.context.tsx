@@ -17,9 +17,14 @@ type Props = {
 }
 
 interface userInfo {
-  id: number;
   login: string;
+  id: number;
+  avatar_url: string;
+  bio: string | null;
   name: string | null;
+  following: number;
+  followers: number;
+  public_repos: number;
 }
 
 const userContext = createContext<null | userContextT>(null);
@@ -30,7 +35,9 @@ function UserProviderWrapper({children}: Props):ReactNode {
   const [user, setUser] = useState("");
   const [userInfo, setUserInfo] = useState<null | userInfo>(null);
   const [error, setError] = useState("");
-  const octokit = new Octokit();
+  // const octokit = new Octokit();
+  const octokit = new Octokit({ auth: `${import.meta.env.VITE_GITHUB_TOKEN}` });
+
  
   async function getUserHomePage(userTry: string) {
     if (userTry != "") {
@@ -69,7 +76,6 @@ function UserProviderWrapper({children}: Props):ReactNode {
           console.log("data de getUserProfilePage:",resp.data)
         })
         .catch((err) => {
-          console.log("user en context: ", user)
           setError(err);
         });
     }

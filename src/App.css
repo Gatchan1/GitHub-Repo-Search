@@ -1,4 +1,3 @@
-#Repos,
 #HomePage {
   display: flex;
   justify-content: center;
@@ -43,4 +42,70 @@
 #Alert button {
   width: 70px;
   color: black;
+}
+
+header {
+  display: flex;
+  margin: 5px 0 5px 350px
+}
+/* changeLater , hacer responsive*/
+
+header #repositories button {
+  display: flex;
+}
+
+header div.reposNumber {
+  margin-left: 10px;
+  padding: 0 6px 1px;
+  border-radius: 10px;
+  background-color: rgb(186, 186, 186);
+}
+
+#Header hr{
+  margin-top: 5px;
+}
+
+#UserInfo { 
+  max-width: 310px;
+  padding-left: 20px;
+}
+/* changeLater , hacer responsive*/
+
+#UserInfo #avatar {
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50%;
+  display: flex;
+  overflow-x: hidden;
+  border: 1px solid rgb(210, 210, 210);
+}
+
+#UserInfo #avatar img {
+  height: 280px;
+  width: 280px;
+}
+/* changeLater , hacer responsive*/
+
+#ProfilePage div.responsive {
+  display: flex;
+}
+
+#Repos form {
+  display: flex;
+}
+
+#Repos div.relative {
+  position: relative;
+} 
+
+#Repos button.toggler,
+#Repos .dropdown button {
+  width: 150px;
+}
+
+
+#Repos .dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
 }
