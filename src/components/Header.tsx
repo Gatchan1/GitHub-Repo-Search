@@ -7,20 +7,11 @@ export default function Header() {
 
   return (
     <div id="Header">
-      <header id="Header">
-        <div className="inactive">
-          <button>Overview</button>
-        </div>
+      <header>
         <div id="repositories">
-          <button>
-            Repositories <div className="reposNumber">{user?.public_repos}</div>
-          </button>
-        </div>
-        <div className="inactive">
-          <button>Projects</button>
+            Public repositories:<div className="reposNumber">{user?.public_repos}</div>
         </div>
       </header>
-      <hr />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Octokit } from "@octokit/core";
 
@@ -13,6 +13,7 @@ export default function Repos() {
   const [loading, setLoading] = useState<boolean>(true);
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const { username } = useParams();
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   interface ShortRepo {
     name: string;
@@ -98,6 +99,14 @@ export default function Repos() {
     console.log(username);
   }, []);
 
+  useEffect(() => {
+    let newResults;
+    if (languageFilter != "All") newResults = filterByName(filterByLanguage(repos));
+    else newResults = filterByName(repos);
+    setSearchResults(newResults);
+    setReposNumber(newResults.length);
+  }, [searchInput, languageFilter]);
+
   function filterByName(data: ShortRepo[]) {
     return data.filter((data) => {
       return data.name.toLowerCase().includes(searchInput.toLowerCase());
@@ -109,14 +118,6 @@ export default function Repos() {
     });
   }
 
-  useEffect(() => {
-    let newResults;
-    if (languageFilter != "All") newResults = filterByName(filterByLanguage(repos));
-    else newResults = filterByName(repos);
-    setSearchResults(newResults);
-    setReposNumber(newResults.length);
-  }, [searchInput, languageFilter]);
-
   function toggleDropdown() {
     //console.log("jskafsjkl", languages);
     setDropdownVisible(!dropdownVisible);
@@ -127,6 +128,14 @@ export default function Repos() {
     toggleDropdown();
   }
 
+  function clearFilters() {
+    console.log("holi?", searchInputRef.current)
+    if (searchInputRef.current)
+    searchInputRef.current.value = "";
+    setLanguageFilter("All");
+    setSearchInput("");
+  }
+
   return (
     <div id="Repos">
       <div>
@@ -134,6 +143,7 @@ export default function Repos() {
           <input
             type="text"
             placeholder="Find a repository..."
+            ref={searchInputRef}
             onChange={(e) => {
               setSearchInput(e.target.value);
             }}
@@ -159,28 +169,31 @@ export default function Repos() {
                 })}
             </div>
           </div>
+          {(searchInput != "" || languageFilter != "All") && <button type="button" onClick={clearFilters}>Clear filters</button>}
         </form>
+        
         {loading && (
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
+          <div>
+          <span className="loader" role="status">
+          </span>
           </div>
         )}
         <div>
           {!loading &&
-            (reposNumber <= 50 || showAll) &&
+            (reposNumber <= 30 || showAll) &&
             searchResults.map((repo) => {
               return <div key={repo.id}>{repo.name}</div>;
             })}
 
           {!loading &&
-            reposNumber > 50 &&
+            reposNumber > 30 &&
             !showAll &&
-            searchResults.slice(0, 50).map((repo) => {
+            searchResults.slice(0, 30).map((repo) => {
               return <div key={repo.id}>{repo.name}</div>;
             })}
-          {!loading && reposNumber > 50 && !showAll && (
+          {!loading && reposNumber > 30 && !showAll && (
             <p>
-              Currently showing only the first 50 results. <button onClick={() => setShowAll(true)}>Click here</button> to display all
+              Currently showing only the first 30 results. <a className="pageLimit" onClick={() => setShowAll(true)}>Click here</a> to display all.
             </p>
           )}
         </div>

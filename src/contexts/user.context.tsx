@@ -38,6 +38,7 @@ function UserProviderWrapper({children}: Props):ReactNode {
 
  
   async function getUserHomePage(userTry: string) {
+    setError("");
     if (userTry != "") {
       const getUser = octokit.request("GET /users/{username}", {
         username: userTry,

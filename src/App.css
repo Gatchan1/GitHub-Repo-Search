@@ -1,27 +1,62 @@
-#HomePage {
-  display: flex;
-  justify-content: center;
+body {
+  margin: 0
 }
 
 #HomePage {
   height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  background-color: #848792;
+  margin: 0;
+  padding: 0;
 }
 
 #HomePage form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fffdf6;
+  border: 2px solid rgb(255, 244, 200);
+  padding: 30px 40px;
+  border-radius: 25px;
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.1);
+}
+#HomePage .form-container {
   position: relative;
 }
 
-#HomePage form button.submit {
-  width: 100px;
+#HomePage form div.input {
+  display: flex;
+  flex-direction: column;
+}
+
+#HomePage form label {
+  padding-bottom: 5px;
+}
+
+#HomePage form button,
+#Alert button {
+  padding: 4px 8px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.1);
+  transition-duration: 0.3s;
+}
+
+#HomePage form button {
+  margin-top: 10px;
+  background-color: rgb(209, 255, 244);
+  border: 1px solid rgb(122, 210, 190);
+}
+#HomePage form button:hover {
+  box-shadow: 0 0 0 0 rgba(0,0,0,0.1);
+  background-color: rgb(233, 255, 250);
 }
 
 #HomePage div.alert {
   position: absolute;
-  left: 200px;
+  top: 24px;
+  left: 235px;
   width: 200px;
   padding: 0;
 }
@@ -37,32 +72,50 @@
 
 #Alert p {
   text-align: center;
+  margin-bottom: 12px;
 }
 
 #Alert button {
   width: 70px;
-  color: black;
+  background-color:rgb(255, 221, 221);
+  border: 1px solid rgb(222, 153, 153);
+  margin-bottom: 5px;
+}
+#Alert button:hover {
+  box-shadow: 0 0 0 0 rgba(0,0,0,0.1);
+  background-color:rgb(255, 228, 228);
+}
+
+#Header{
+  border-bottom: 2px solid rgb(186, 186, 186);
+}
+
+#ProfilePage .responsive {
+  margin-top: 30px;
+  background-color: white;
 }
 
 header {
   display: flex;
-  margin: 5px 0 5px 350px
+  margin-top: 14px;
+  margin-left: 330px;  /* changeLater , hacer responsive*/
 }
-/* changeLater , hacer responsive*/
 
-header #repositories button {
+header #repositories {
   display: flex;
+  padding: 5px 10px 5px 12px;
+  border-width: 2px 2px 0 2px;
+  border-style: solid;
+  border-color: rgb(186, 186, 186);
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
 }
 
 header div.reposNumber {
   margin-left: 10px;
   padding: 0 6px 1px;
   border-radius: 10px;
-  background-color: rgb(186, 186, 186);
-}
-
-#Header hr{
-  margin-top: 5px;
+  background-color: rgb(210, 210, 210);
 }
 
 #UserInfo { 
@@ -94,6 +147,26 @@ header div.reposNumber {
   display: flex;
 }
 
+#Repos .loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #8f8f8f;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 #Repos div.relative {
   position: relative;
 } 
@@ -103,9 +176,19 @@ header div.reposNumber {
   min-width: 150px;
 }
 
-
 #Repos .dropdown {
   position: absolute;
   display: flex;
   flex-direction: column;
+}
+
+#Repos a.pageLimit {
+  text-decoration: underline;
+}
+#Repos a.pageLimit:hover{
+  cursor: pointer;
+} 
+
+@media only screen and (min-width: 768px) {
+
 }
