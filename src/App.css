@@ -100,7 +100,7 @@ header div.reposNumber {
 
 #Repos button.toggler,
 #Repos .dropdown button {
-  width: 150px;
+  min-width: 150px;
 }
 
 

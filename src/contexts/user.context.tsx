@@ -7,7 +7,6 @@ interface userContextT {
   getUserHomePage: (userTry: string) => Promise<void>;
   getUserProfilePage: (userTry: string) => Promise<void>;
   error: string;
-  //apiInfo: null | ApiInfoItem[];
   loading: boolean;
 }
 
@@ -30,7 +29,6 @@ interface userInfo {
 const userContext = createContext<null | userContextT>(null);
 
 function UserProviderWrapper({children}: Props):ReactNode {
- // const [apiInfo, setApiInfo] = useState<null | ApiInfoItem[]>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState("");
   const [userInfo, setUserInfo] = useState<null | userInfo>(null);
@@ -86,7 +84,6 @@ function UserProviderWrapper({children}: Props):ReactNode {
     user,
     getUserHomePage,
     getUserProfilePage,
-   // apiInfo,
     loading,
     error
   }
