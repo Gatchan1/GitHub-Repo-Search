@@ -1,0 +1,100 @@
+#HomePage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a0a2aa;
+  margin: 0;
+  padding: 0;
+}
+
+#HomePage form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #efefef;
+  border: 2px solid rgb(193, 193, 193);
+  padding: 30px 40px;
+  border-radius: 25px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.1);
+}
+#HomePage .form-container {
+  position: relative;
+}
+
+#HomePage form div.input {
+  display: flex;
+  flex-direction: column;
+}
+
+#HomePage form label {
+  padding-bottom: 5px;
+}
+
+#HomePage form input {
+  height: 22px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#HomePage form button,
+#Alert button {
+  padding: 6px 8px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.1);
+  transition-duration: 0.3s;
+}
+
+#HomePage form button {
+  margin-top: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgb(125, 125, 125);
+  font-size: 14px;
+}
+#HomePage form button:hover {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+  background-color: rgb(235, 235, 235);
+  cursor: pointer;
+}
+
+#HomePage div.alert {
+  position: absolute;
+  top: 120px;
+  left: 45px;
+  width: 200px;
+  padding: 0;
+}
+
+#Alert {
+  background-color: rgb(255, 255, 255);
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#Alert p {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+#Alert button {
+  width: 70px;
+  background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(191, 191, 191);
+  margin-bottom: 5px;
+}
+#Alert button:hover {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 555px) {
+  #HomePage div.alert {
+    top: 22px;
+    left: 215px;
+    width: 200px;
+  }
+}

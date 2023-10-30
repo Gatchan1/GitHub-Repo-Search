@@ -7,13 +7,20 @@ export default function UserInfo() {
 
   return (
     <div id="UserInfo">
-      <div id="avatar">
-        <img src={user?.avatar_url} alt={`${user?.login} avatar image`} />
+      <div className="user">
+        <div className="avatar">
+          <img src={user?.avatar_url} alt={`${user?.login} avatar image`} />
+        </div>
+        <div className="naming">
+          <h2>{user?.name}</h2>
+          <h3>{user?.login}</h3>
+        </div>
       </div>
-      <h2>{user?.name}</h2>
-      <h3>{user?.login}</h3>
-      <p id="bio">{user?.bio}</p>
-      <div id="follows"><p>{user?.followers} followers</p><p>{user?.following} following</p></div>
+      <p className="bio">{user?.bio}</p>
+      <div className="follows">
+        <img src="/icon-followers.png" alt="followers icon" /><p><strong>{user?.followers}</strong> followers · <strong>{user?.following}</strong> following</p>
+      </div>
+      <hr />
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import "../style/ProfilePage.css"
+import "../style/Repos.css"
 import { useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Repos from "../components/Repos";

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Octokit } from "@octokit/core";
+import { DateTime } from "luxon";
 
 export default function Repos() {
   const [repos, setRepos] = useState<ShortRepo[]>([]);
@@ -17,9 +18,11 @@ export default function Repos() {
 
   interface ShortRepo {
     name: string;
+    html_url: string;
     language: string | null | undefined;
     description: string | null;
     updated_at: string;
+    stargazers_count: number;
     id: number;
   }
 
@@ -41,14 +44,11 @@ export default function Repos() {
 
       const parsedData = parseData(
         response.data
-          .map((item: ShortRepo) => {
-            return { name: item.name, description: item.description, language: item.language, updated_at: item.updated_at, id: item.id };
-          })
           .sort((a: ShortRepo, b: ShortRepo) => (a.updated_at < b.updated_at ? 1 : -1))
+          .map((item: ShortRepo) => {
+            return { name: item.name, html_url: item.html_url, description: item.description, language: item.language, updated_at: DateTime.fromISO(item.updated_at).toFormat("LLL dd yyyy"), stargazers_count: item.stargazers_count, id: item.id };
+          })
       );
-      /*  .map((item:ShortRepo) => {
-          return { name: item.name, description: item.description, language: item.language, updated_at: item.updated_at, id: item.id };
-        }).sort((a:ShortRepo, b:ShortRepo) => (a.updated_at < b.updated_at) ? 1 : -1) */
       console.log("parsedData: ", parsedData);
       data = [...data, ...parsedData];
 
@@ -119,7 +119,6 @@ export default function Repos() {
   }
 
   function toggleDropdown() {
-    //console.log("jskafsjkl", languages);
     setDropdownVisible(!dropdownVisible);
   }
 
@@ -129,72 +128,88 @@ export default function Repos() {
   }
 
   function clearFilters() {
-    console.log("holi?", searchInputRef.current)
-    if (searchInputRef.current)
-    searchInputRef.current.value = "";
+    if (searchInputRef.current) searchInputRef.current.value = "";
     setLanguageFilter("All");
     setSearchInput("");
   }
 
+  function displayRepo(repo: ShortRepo) {
+    return (
+      <div className="repo" key={repo.id}>
+        <h4>
+          <a href={repo.html_url}>{repo.name}</a>
+        </h4>
+        <p className="description">{repo.description}</p>
+        <div className="details">
+          <p className="detail">{repo.language}</p>
+          <div className="detail"><img className="star" src="/star.png" alt="star" /><p>{repo.stargazers_count}</p></div>
+          <p className="detail">Updated on {repo.updated_at}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div id="Repos">
-      <div>
+      <div className="reposContainer">
         <form>
-          <input
-            type="text"
-            placeholder="Find a repository..."
-            ref={searchInputRef}
-            onChange={(e) => {
-              setSearchInput(e.target.value);
-            }}
-          />
-          <div className="relative">
-            <button className="toggler" onClick={toggleDropdown} type="button" aria-expanded="false">
-              Language: {languageFilter}
-            </button>
-            <div className="dropdown">
-              {!loading && dropdownVisible && (
-                <button type="button" onClick={() => languageHandler("All")}>
-                  All
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Find a repository..."
+              ref={searchInputRef}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+              }}
+            />
+            <div className="buttonsContainer">
+              <div className="dropdown">
+                <button className="toggler" onClick={toggleDropdown} type="button" aria-expanded="false">
+                  <img src="/arrow-down.svg" alt="arrow pointing down" /> Language: {languageFilter}
+                </button>
+                <div className="options">
+                  {!loading && dropdownVisible && (
+                    <button className="option" type="button" onClick={() => languageHandler("All")}>
+                      All
+                    </button>
+                  )}
+                  {!loading &&
+                    dropdownVisible &&
+                    languages.map((lang, k) => {
+                      return (
+                        <button className="option" type="button" key={k} onClick={() => languageHandler(lang)}>
+                          {lang}
+                        </button>
+                      );
+                    })}
+                </div>
+              </div>
+              {(searchInput != "" || languageFilter != "All") && (
+                <button className="clearFilters" type="button" onClick={clearFilters}>
+                  Clear filters
                 </button>
               )}
-              {!loading &&
-                dropdownVisible &&
-                languages.map((lang, k) => {
-                  return (
-                    <button type="button" key={k} onClick={() => languageHandler(lang)}>
-                      {lang}
-                    </button>
-                  );
-                })}
             </div>
           </div>
-          {(searchInput != "" || languageFilter != "All") && <button type="button" onClick={clearFilters}>Clear filters</button>}
         </form>
-        
+
         {loading && (
-          <div>
-          <span className="loader" role="status">
-          </span>
+          <div className="spinnerContainer">
+            <span className="spinner" role="status"></span>
           </div>
         )}
-        <div>
-          {!loading &&
-            (reposNumber <= 30 || showAll) &&
-            searchResults.map((repo) => {
-              return <div key={repo.id}>{repo.name}</div>;
-            })}
+        <div className="reposContainer">
+          {!loading && (reposNumber <= 30 || showAll) && searchResults.map(displayRepo)}
 
-          {!loading &&
-            reposNumber > 30 &&
-            !showAll &&
-            searchResults.slice(0, 30).map((repo) => {
-              return <div key={repo.id}>{repo.name}</div>;
-            })}
+          {!loading && reposNumber > 30 && !showAll && searchResults.slice(0, 30).map(displayRepo)}
+
           {!loading && reposNumber > 30 && !showAll && (
-            <p>
-              Currently showing only the first 30 results. <a className="pageLimit" onClick={() => setShowAll(true)}>Click here</a> to display all.
-            </p>
+            <div className="pageLimit">
+              <p className="currently">Currently showing only the first 30 results.</p>
+              <p>
+                <a onClick={() => setShowAll(true)}>Click here</a> to display all.
+              </p>
+            </div>
           )}
         </div>
       </div>
