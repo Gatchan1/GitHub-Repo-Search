@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Octokit } from "@octokit/core";
 import { DateTime } from "luxon";
+import SearchRepos from "./SearchRepos";
+import SingleRepo from "./SingleRepo";
 
 export default function Repos() {
   const [repos, setRepos] = useState<ShortRepo[]>([]);
@@ -14,9 +16,8 @@ export default function Repos() {
   const [loading, setLoading] = useState<boolean>(true);
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const { username } = useParams();
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  interface ShortRepo {
+  type ShortRepo = {
     name: string;
     html_url: string;
     language: string | null | undefined;
@@ -24,7 +25,7 @@ export default function Repos() {
     updated_at: string;
     stargazers_count: number;
     id: number;
-  }
+  };
 
   // const octokit = new Octokit({ auth: `${import.meta.env.VITE_GITHUB_TOKEN}` });
   const octokit = new Octokit();
@@ -116,103 +117,42 @@ export default function Repos() {
     setReposNumber(newResults.length);
   }, [searchInput, languageFilter]);
 
-  function toggleDropdown() {
-    setDropdownVisible(!dropdownVisible);
-  }
-
-  function languageHandler(language: string) {
-    setLanguageFilter(language);
-    toggleDropdown();
-  }
-
-  function clearFilters() {
-    if (searchInputRef.current) searchInputRef.current.value = "";
-    setLanguageFilter("All");
-    setSearchInput("");
-  }
-
-  function displayRepo(repo: ShortRepo) {
-    return (
-      <div className="repo" key={repo.id}>
-        <h4>
-          <a href={repo.html_url}>{repo.name}</a>
-        </h4>
-        <p className="description">{repo.description}</p>
-        <div className="details">
-          <p className="detail">{repo.language}</p>
-          <div className="detail">
-            <img className="star" src="/star.png" alt="star" />
-            <p>{repo.stargazers_count}</p>
-          </div>
-          <p className="detail">Updated on {repo.updated_at}</p>
-        </div>
-      </div>
-    );
-  }
+  const propsFunctions = {
+    toggleDropdown() {
+      setDropdownVisible(!dropdownVisible);
+    },
+    languageHandler(language: string) {
+      setLanguageFilter(language);
+      propsFunctions.toggleDropdown();
+    },
+    clearFilters() {
+      setLanguageFilter("All");
+      setSearchInput("");
+    },
+  };
 
   return (
     <div id="Repos">
-      <div className="reposContainer">
-        <form>
-          <div className="flex">
-            <input
-              type="text"
-              placeholder="Find a repository..."
-              ref={searchInputRef}
-              onChange={(e) => {
-                setSearchInput(e.target.value);
-              }}
-            />
-            <div className="buttonsContainer">
-              <div className="dropdown">
-                <button className="toggler" onClick={toggleDropdown} type="button" aria-expanded="false">
-                  <img src="/arrow-down.svg" alt="arrow pointing down" /> Language: {languageFilter}
-                </button>
-                <div className="options">
-                  {!loading && dropdownVisible && (
-                    <button className="option" type="button" onClick={() => languageHandler("All")}>
-                      All
-                    </button>
-                  )}
-                  {!loading &&
-                    dropdownVisible &&
-                    languages.map((lang, k) => {
-                      return (
-                        <button className="option" type="button" key={k} onClick={() => languageHandler(lang)}>
-                          {lang}
-                        </button>
-                      );
-                    })}
-                </div>
-              </div>
-              {(searchInput != "" || languageFilter != "All") && (
-                <button className="clearFilters" type="button" onClick={clearFilters}>
-                  Clear filters
-                </button>
-              )}
-            </div>
-          </div>
-        </form>
+      <SearchRepos searchInput={searchInput} setSearchInput={setSearchInput} loading={loading} dropdownVisible={dropdownVisible} languages={languages} languageFilter={languageFilter} propsFunctions={propsFunctions} />
 
-        {loading && (
-          <div className="spinnerContainer">
-            <span className="spinner" role="status"></span>
+      {loading && (
+        <div className="spinnerContainer">
+          <span className="spinner" role="status"></span>
+        </div>
+      )}
+      <div className="reposContainer">
+        {!loading && (reposNumber <= 30 || showAll) && searchResults.map((repository) => <SingleRepo repo={repository} />)}
+
+        {!loading && reposNumber > 30 && !showAll && searchResults.slice(0, 30).map((repository) => <SingleRepo repo={repository} />)}
+
+        {!loading && reposNumber > 30 && !showAll && (
+          <div className="pageLimit">
+            <p className="currently">Currently showing only the first 30 results.</p>
+            <p>
+              <a onClick={() => setShowAll(true)}>Click here</a> to display all.
+            </p>
           </div>
         )}
-        <div className="reposContainer">
-          {!loading && (reposNumber <= 30 || showAll) && searchResults.map(displayRepo)}
-
-          {!loading && reposNumber > 30 && !showAll && searchResults.slice(0, 30).map(displayRepo)}
-
-          {!loading && reposNumber > 30 && !showAll && (
-            <div className="pageLimit">
-              <p className="currently">Currently showing only the first 30 results.</p>
-              <p>
-                <a onClick={() => setShowAll(true)}>Click here</a> to display all.
-              </p>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

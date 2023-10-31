@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+# GitHub Repositories With Search Functionality
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a web app that browses any given GitHub user's repositories, and filters them by name and/or programming language.
+It was a Technical Challenge done within 7 days.
 
-Currently, two official plugins are available:
+### Structure:
+![Structure Diagram](https://res.cloudinary.com/dqzjo5wsl/image/upload/v1698769651/Captura_de_pantalla_2023-10-31_172252_nz5zei.png "Structure Diagram")
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Languages, Frameworks and Libraries used:
+- `React` project started with the help of `create-vite`.
+- Language used: `Typescript`.
+- GitHub API via `Octokit`.
+- Library used for date formatting: `Luxon`.
 
-## Expanding the ESLint configuration
+## How to run the app
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Clone this repo and run `npm run dev` on the console.
 
-- Configure the top-level `parserOptions` property like this:
+## About me
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Hi! My name is Raquel and I just started learning Typescript for this project. (I say "started learning" because learning never ends, right?).
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+I really hope you guys like the project!! 🙌🙌
+
+## Future improvements
+- Add a color circle for each programming language ([use these!](https://github.com/ozh/github-colors))
+- Write tests

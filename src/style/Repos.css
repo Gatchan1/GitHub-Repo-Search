@@ -3,16 +3,6 @@
   padding: 0 3% 30px 2%;
 }
 
-#Repos form div.flex {
-  display: flex;
-  flex-direction: column;
-}
-
-#Repos form input {
-  height: 30px;
-  font-size: 16px;
-}
-
 #Repos .spinner {
   width: 48px;
   height: 48px;
@@ -39,7 +29,17 @@
   }
 }
 
-#Repos div.buttonsContainer {
+#SearchRepos div.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+#SearchRepos input {
+  height: 30px;
+  font-size: 16px;
+}
+
+#SearchRepos div.buttonsContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -47,92 +47,92 @@
   position: relative;
 }
 
-#Repos div.options {
+#SearchRepos div.options {
   position: absolute;
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(128, 128, 128);
 }
 
-#Repos button:hover {
+#SearchRepos button:hover {
   cursor: pointer;
 }
 
-#Repos button.toggler,
-#Repos .dropdown button {
+#SearchRepos button.toggler,
+#SearchRepos .dropdown button {
   min-width: 180px;
   font-size: 14px;
 }
-#Repos button.toggler {
+#SearchRepos button.toggler {
   font-weight: 600;
   min-height: 36px;
   margin-right: 4px;
 }
-#Repos button.toggler img {
+#SearchRepos button.toggler img {
   width: 10px;
 }
 
-#Repos button.option {
+#SearchRepos button.option {
   min-width: 179px;
   border: 0;
   height: 22px;
 }
-#Repos button.option:hover {
+#SearchRepos button.option:hover {
   background-color: #ffffff;
 }
 
-#Repos button.clearFilters {
+#SearchRepos button.clearFilters {
   font-size: 14px;
   width: 100px;
   min-height: 36px;
   border: 1px solid rgb(123, 123, 123);
   border-radius: 10px;
 }
-#Repos button.clearFilters:hover {
+#SearchRepos button.clearFilters:hover {
   background-color: #e5e5e5;
 }
 
-#Repos .repo {
+#SingleRepo {
   border-bottom: 1px solid grey;
 }
 
-#Repos .repo h4 {
+#SingleRepo h4 {
   font-size: 22px;
   padding-bottom: 10px;
   margin-bottom: 0;
 }
 
-#Repos .repo a {
+#SingleRepo a {
   text-decoration: none;
   color: #0969da;
 }
 
-#Repos .repo .description {
+#SingleRepo .description {
   margin-top: 0;
   font-size: 17px;
 }
 
-#Repos .repo .details {
+#SingleRepo .details {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin: 12px 0 24px 0;
 }
-#Repos .repo .detail {
+#SingleRepo .detail {
   padding-right: 30px;
   font-size: 14px;
   color: #5c5c5c;
 }
-#Repos .repo .details p {
+#SingleRepo .details p {
   margin: 0;
 }
-#Repos .repo div.detail {
+#SingleRepo div.detail {
   display: flex;
   align-items: center;
   height: fit-content;
 }
 
-#Repos .repo img.star {
+#SingleRepo img.star {
   padding-right: 4px;
   height: 16px;
 }
@@ -167,10 +167,10 @@
 }
 
 @media only screen and (min-width: 1001px) {
-  #Repos form div.flex {
+  #SearchRepos div.flex {
     flex-direction: row;
   }
-  #Repos form input {
+  #SearchRepos input {
     width: calc(90% - 240px);
   }
 }
