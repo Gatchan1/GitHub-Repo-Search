@@ -4,12 +4,27 @@
   background-color: #eaeaea;
 }
 
-header {
+#Header a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #0969da;
+}
+
+#Header a img {
+  height: 22px;
+  padding-right: 4px;
+}
+
+#Header .container {
   display: flex;
   justify-content: center;
 }
 
-header #repositories {
+#Header .container #repositories {
   display: flex;
   padding: 5px 10px 5px 12px;
   border-width: 2px 2px 0 2px;
@@ -20,7 +35,7 @@ header #repositories {
   background-color: white;
 }
 
-header div.reposNumber {
+#Header .container div.reposNumber {
   margin-left: 10px;
   padding: 0 6px 1px;
   border-radius: 10px;
@@ -90,7 +105,12 @@ header div.reposNumber {
 }
 
 @media only screen and (min-width: 769px) {
-  header {
+  #Header a {
+    position: absolute;
+    left: 10%;
+  }
+
+  #Header .container {
     margin-left: calc(314px + 10%);
     justify-content: unset;
   }

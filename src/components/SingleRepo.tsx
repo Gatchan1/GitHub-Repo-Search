@@ -11,7 +11,7 @@ interface ShortRepo {
 export default function SingleRepo(props: {repo: ShortRepo}) {
     const {repo} = props;
     return (
-        <div id="SingleRepo" key={repo.id}>
+        <div id="SingleRepo">
           <h4>
             <a href={repo.html_url}>{repo.name}</a>
           </h4>

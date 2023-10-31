@@ -7,7 +7,8 @@ interface userContextT {
   getUser: (userTry: string) => Promise<void>;
   error: string;
   loading: boolean;
-  setError: React.Dispatch<React.SetStateAction<string>>
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  resetValues: () => void;
 }
 
 type Props = {
@@ -56,13 +57,20 @@ function UserProviderWrapper({ children }: Props): ReactNode {
     }
   }
 
+  function resetValues() {
+    setUserInfo(null);
+    setUser("");
+    setError("");
+  }
+
   const exposedValues = {
     userInfo,
     user,
     getUser,
     loading,
     error,
-    setError
+    setError,
+    resetValues,
   };
 
   return <userContext.Provider value={exposedValues}>{children}</userContext.Provider>;

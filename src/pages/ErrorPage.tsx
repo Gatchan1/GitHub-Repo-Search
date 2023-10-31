@@ -8,7 +8,7 @@ export default function ErrorPage() {
   useEffect(()=>{
     if (contextValues) {
       if (contextValues.error != "") {
-        contextValues.setError("");
+        contextValues.resetValues();
       }
     }
   },[])
