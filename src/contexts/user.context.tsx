@@ -32,8 +32,8 @@ function UserProviderWrapper({ children }: Props): ReactNode {
   const [user, setUser] = useState("");
   const [userInfo, setUserInfo] = useState<null | userInfo>(null);
   const [error, setError] = useState("");
-  // const octokit = new Octokit();
-  const octokit = new Octokit({ auth: `${import.meta.env.VITE_GITHUB_TOKEN}` });
+  const octokit = new Octokit();
+  // const octokit = new Octokit({ auth: `${import.meta.env.VITE_GITHUB_TOKEN}` });
 
   async function getUser(userTry: string) {
     setError("");

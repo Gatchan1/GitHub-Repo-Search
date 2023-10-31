@@ -29,7 +29,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (contextValues) {
-      console.log("el maldito error: ", contextValues.error)
+      //console.log("error: ", contextValues.error)
       if (contextValues.error != "") {
         setError("This username doesn't seem to exist");
       }
