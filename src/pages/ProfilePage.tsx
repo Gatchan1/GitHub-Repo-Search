@@ -1,5 +1,5 @@
-import "../style/ProfilePage.css"
-import "../style/Repos.css"
+import "../style/ProfilePage.css";
+import "../style/Repos.css";
 import { useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Repos from "../components/Repos";
@@ -15,11 +15,13 @@ export default function ProfilePage() {
   useEffect(() => {
     if (contextValues) {
       if (contextValues.loading && typeof username == "string") {
-        contextValues.getUserProfilePage(username);
+        contextValues.getUser(username);
       }
       if (contextValues.error != "") {
-        navigate("/notfound")}
+        contextValues.setError("");
+        navigate("/notfound");
       }
+    }
   }, [contextValues?.loading, contextValues?.error]);
 
   return (

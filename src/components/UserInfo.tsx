@@ -18,7 +18,10 @@ export default function UserInfo() {
       </div>
       <p className="bio">{user?.bio}</p>
       <div className="follows">
-        <img src="/icon-followers.png" alt="followers icon" /><p><strong>{user?.followers}</strong> followers · <strong>{user?.following}</strong> following</p>
+        <img src="/icon-followers.png" alt="followers icon" />
+        <p>
+          <strong>{user?.followers}</strong> followers · <strong>{user?.following}</strong> following
+        </p>
       </div>
       <hr />
     </div>

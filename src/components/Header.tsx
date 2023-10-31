@@ -9,12 +9,9 @@ export default function Header() {
     <div id="Header">
       <header>
         <div id="repositories">
-            Public repositories:<div className="reposNumber">{user?.public_repos}</div>
+          Public repositories:<div className="reposNumber">{user?.public_repos}</div>
         </div>
       </header>
     </div>
   );
 }
-
-// (This component will only show if contextValues?.loading == false,
-// as stated in ProfilePage.tsx)

@@ -25,9 +25,9 @@
 }
 
 #Repos .spinnerContainer {
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
 }
 
 @keyframes rotation {
@@ -55,7 +55,7 @@
 }
 
 #Repos button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #Repos button.toggler,
@@ -93,48 +93,48 @@
 }
 
 #Repos .repo {
-    border-bottom: 1px solid grey;
+  border-bottom: 1px solid grey;
 }
 
 #Repos .repo h4 {
-    font-size: 22px;
-    padding-bottom: 10px;
-    margin-bottom: 0;
+  font-size: 22px;
+  padding-bottom: 10px;
+  margin-bottom: 0;
 }
 
 #Repos .repo a {
-    text-decoration: none;
-    color: #0969da;
+  text-decoration: none;
+  color: #0969da;
 }
 
 #Repos .repo .description {
-    margin-top: 0;
-    font-size: 17px; 
+  margin-top: 0;
+  font-size: 17px;
 }
 
 #Repos .repo .details {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 12px 0 24px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 12px 0 24px 0;
 }
 #Repos .repo .detail {
-    padding-right: 30px;
-    font-size: 14px;
-    margin: 0;
+  padding-right: 30px;
+  font-size: 14px;
+  color: #5c5c5c;
 }
-#Repos .repo .detail p {
-    margin: 0;
+#Repos .repo .details p {
+  margin: 0;
 }
 #Repos .repo div.detail {
-display: flex;
-align-items: center;
-height: fit-content;
+  display: flex;
+  align-items: center;
+  height: fit-content;
 }
 
 #Repos .repo img.star {
-    padding-right: 4px;
-    height: 16px;
+  padding-right: 4px;
+  height: 16px;
 }
 
 #Repos .pageLimit {

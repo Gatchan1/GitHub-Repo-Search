@@ -1,3 +1,9 @@
 body {
   margin: 0
 }
+
+#ErrorPage {
+  margin-top: 30vh;
+  justify-content: center;
+  text-align: center;
+}

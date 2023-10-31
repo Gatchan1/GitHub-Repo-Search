@@ -13,6 +13,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="/notfound" element={<ErrorPage />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </UserProviderWrapper>
     </>

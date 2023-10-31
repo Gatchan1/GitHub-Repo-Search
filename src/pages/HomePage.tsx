@@ -1,5 +1,5 @@
-import "../style/HomePage.css"
-import { useContext, useState, useEffect } from "react";
+import "../style/HomePage.css";
+import { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../contexts/user.context";
 import Alert from "../components/Alert";
@@ -8,11 +8,28 @@ export default function HomePage() {
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const submitRef = useRef<HTMLButtonElement>(null);
 
   const contextValues = useContext(userContext);
 
   useEffect(() => {
+    if (contextValues?.error != "") {
+      contextValues?.setError("");
+    }
+    if (inputRef && inputRef.current) {
+      inputRef.current.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && submitRef && submitRef.current) {
+          e.preventDefault();
+          submitRef.current.click();
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (contextValues) {
+      console.log("el maldito error: ", contextValues.error)
       if (contextValues.error != "") {
         setError("This username doesn't seem to exist");
       }
@@ -32,6 +49,7 @@ export default function HomePage() {
               id="userInput"
               type="text"
               placeholder="username"
+              ref={inputRef}
               onChange={(e) => {
                 setUserInput(e.target.value);
               }}
@@ -39,17 +57,17 @@ export default function HomePage() {
           </div>
           <button
             type="button"
+            ref={submitRef}
             onClick={() => {
-              console.log("userInput",userInput)
-              contextValues?.getUserHomePage(userInput);
+              contextValues?.getUser(userInput);
             }}
           >
             Submit
           </button>
         </form>
-        {error != "" && (
+        {contextValues?.error != "" && (
           <div className="alert">
-            <Alert message={error} setError={setError} />
+            <Alert message={error} />
           </div>
         )}
       </div>

@@ -49,7 +49,7 @@ export default function Repos() {
             return { name: item.name, html_url: item.html_url, description: item.description, language: item.language, updated_at: DateTime.fromISO(item.updated_at).toFormat("LLL dd yyyy"), stargazers_count: item.stargazers_count, id: item.id };
           })
       );
-      console.log("parsedData: ", parsedData);
+      //console.log("parsedData: ", parsedData);
       data = [...data, ...parsedData];
 
       const linkHeader = response.headers.link;
@@ -96,16 +96,7 @@ export default function Repos() {
 
   useEffect(() => {
     getPaginatedRepos(`/users/${username}/repos`);
-    console.log(username);
   }, []);
-
-  useEffect(() => {
-    let newResults;
-    if (languageFilter != "All") newResults = filterByName(filterByLanguage(repos));
-    else newResults = filterByName(repos);
-    setSearchResults(newResults);
-    setReposNumber(newResults.length);
-  }, [searchInput, languageFilter]);
 
   function filterByName(data: ShortRepo[]) {
     return data.filter((data) => {
@@ -117,6 +108,13 @@ export default function Repos() {
       return data.language == languageFilter;
     });
   }
+  useEffect(() => {
+    let newResults;
+    if (languageFilter != "All") newResults = filterByName(filterByLanguage(repos));
+    else newResults = filterByName(repos);
+    setSearchResults(newResults);
+    setReposNumber(newResults.length);
+  }, [searchInput, languageFilter]);
 
   function toggleDropdown() {
     setDropdownVisible(!dropdownVisible);
@@ -142,7 +140,10 @@ export default function Repos() {
         <p className="description">{repo.description}</p>
         <div className="details">
           <p className="detail">{repo.language}</p>
-          <div className="detail"><img className="star" src="/star.png" alt="star" /><p>{repo.stargazers_count}</p></div>
+          <div className="detail">
+            <img className="star" src="/star.png" alt="star" />
+            <p>{repo.stargazers_count}</p>
+          </div>
           <p className="detail">Updated on {repo.updated_at}</p>
         </div>
       </div>
