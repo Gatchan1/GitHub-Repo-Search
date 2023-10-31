@@ -141,9 +141,9 @@ export default function Repos() {
         </div>
       )}
       <div className="reposContainer">
-        {!loading && (reposNumber <= 30 || showAll) && searchResults.map((repository) => <SingleRepo repo={repository} />)}
+        {!loading && (reposNumber <= 30 || showAll) && searchResults.map((repository) => <SingleRepo repo={repository} key={repository.id}/>)}
 
-        {!loading && reposNumber > 30 && !showAll && searchResults.slice(0, 30).map((repository) => <SingleRepo repo={repository} />)}
+        {!loading && reposNumber > 30 && !showAll && searchResults.slice(0, 30).map((repository) => <SingleRepo repo={repository} key={repository.id}/>)}
 
         {!loading && reposNumber > 30 && !showAll && (
           <div className="pageLimit">

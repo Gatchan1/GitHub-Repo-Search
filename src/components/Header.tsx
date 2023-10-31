@@ -6,12 +6,13 @@ export default function Header() {
   const user = contextValues?.userInfo;
 
   return (
-    <div id="Header">
-      <header>
+    <header id="Header">
+      <a href="/"><img src="/undo.png" alt="arrow pointing back" /> Back to Homepage</a>
+      <div className="container">
         <div id="repositories">
           Public repositories:<div className="reposNumber">{user?.public_repos}</div>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
