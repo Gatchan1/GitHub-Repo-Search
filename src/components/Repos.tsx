@@ -14,7 +14,6 @@ export default function Repos() {
   const [reposNumber, setReposNumber] = useState<number>(0);
   const [showAll, setShowAll] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const { username } = useParams();
 
   type ShortRepo = {
@@ -117,23 +116,9 @@ export default function Repos() {
     setReposNumber(newResults.length);
   }, [searchInput, languageFilter]);
 
-  const propsFunctions = {
-    toggleDropdown() {
-      setDropdownVisible(!dropdownVisible);
-    },
-    languageHandler(language: string) {
-      setLanguageFilter(language);
-      propsFunctions.toggleDropdown();
-    },
-    clearFilters() {
-      setLanguageFilter("All");
-      setSearchInput("");
-    },
-  };
-
   return (
     <div id="Repos">
-      <SearchRepos searchInput={searchInput} setSearchInput={setSearchInput} loading={loading} dropdownVisible={dropdownVisible} languages={languages} languageFilter={languageFilter} propsFunctions={propsFunctions} />
+      <SearchRepos searchInput={searchInput} setSearchInput={setSearchInput} loading={loading} languages={languages} setLanguageFilter={setLanguageFilter} languageFilter={languageFilter} />
 
       {loading && (
         <div className="spinnerContainer">

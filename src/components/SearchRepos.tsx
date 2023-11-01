@@ -1,23 +1,33 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 
 type SearchReposProps = {
   searchInput: string;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
   loading: boolean;
-  dropdownVisible: boolean;
   languages: string[];
   languageFilter: string;
-  propsFunctions: {
-    toggleDropdown(): void;
-    languageHandler(language: string): void;
-    clearFilters(): void;
-  };
+  setLanguageFilter: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function SearchRepos(props: SearchReposProps) {
-  const { searchInput, setSearchInput, loading, dropdownVisible, languages, languageFilter, propsFunctions } = props;
-  const { languageHandler, toggleDropdown, clearFilters } = propsFunctions;
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+
+  const { searchInput, setSearchInput, loading, languages, setLanguageFilter, languageFilter } = props;
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  function toggleDropdown() {
+    setDropdownVisible(!dropdownVisible);
+  }
+
+  function languageHandler(language: string) {
+    setLanguageFilter(language);
+    toggleDropdown();
+  }
+
+  function clearFilters() {
+    setLanguageFilter("All");
+    setSearchInput("");
+  }
 
   return (
     <div id="SearchRepos">
