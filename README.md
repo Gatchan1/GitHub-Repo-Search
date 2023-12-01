@@ -16,7 +16,7 @@ It was a Technical Challenge done within 7 days.
 
 ## How to run the app
 
-Clone this repo and run `npm run dev` on the console.
+Clone this repo, run "npm install" on the console, and then run "npm run dev".
 
 Or just head on to the [deployed site](https://findrepositories.netlify.app/).
 
